@@ -1,9 +1,18 @@
-﻿from flask import Flask, jsonify, request
+import sys
+from pathlib import Path
+
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+BASE_DIR = Path(__file__).resolve().parent
+VENDORED_PACKAGE_ROOT = BASE_DIR / "ytmusicapi-main"
+
+if str(VENDORED_PACKAGE_ROOT) not in sys.path:
+    sys.path.insert(0, str(VENDORED_PACKAGE_ROOT))
+
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-if hasattr(app, 'json'):
+app.config["JSON_AS_ASCII"] = False
+if hasattr(app, "json"):
     app.json.ensure_ascii = False
 CORS(app)
 
